@@ -1,6 +1,12 @@
-
 var express = require('express');
 var app = express();
+
+const path = __dirname + "/views/index.html";
+const staticPath = __dirname + "/public";
+
+const object = {
+	message: "Hello json"
+}
 
 // --> 7)  Mount the Logger middleware here
 
@@ -9,19 +15,25 @@ var app = express();
 
 
 /** 1) Meet the node console. */
-
+console.log('Hello World');
 
 /** 2) A first working Express Server */
-
+// app.get('/', function(req, res) {
+// 	res.send("Hello Express");
+// })
 
 /** 3) Serve an HTML file */
-
+app.get('/', function(req, res) {
+	res.sendFile(path);
+})
 
 /** 4) Serve static assets  */
-
+app.use(express.static(staticPath));
 
 /** 5) serve JSON on a specific route */
-
+app.get('/json', function(req, res){
+	res.json(object);
+})
 
 /** 6) Use the .env file to configure the app */
  
