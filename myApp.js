@@ -1,5 +1,6 @@
 var express = require('express');
 var app = express();
+var dotenv = require('dotenv').config();
 
 const path = __dirname + "/views/index.html";
 const staticPath = __dirname + "/public";
@@ -7,6 +8,8 @@ const staticPath = __dirname + "/public";
 const object = {
 	message: "Hello json"
 }
+
+const style = "uppercase";
 
 // --> 7)  Mount the Logger middleware here
 
@@ -29,14 +32,22 @@ app.get('/', function(req, res) {
 
 /** 4) Serve static assets  */
 app.use(express.static(staticPath));
-
 /** 5) serve JSON on a specific route */
+/** 6) Use the .env file to configure the app */
+
+console.log(process.env.MESSAGE_STYLE);
 app.get('/json', function(req, res){
-	res.json(object);
+	if(process.env.MESSAGE_STYLE === "uppercase"){
+
+		res.json(objecttoUpperCase());
+		onsole.log('uppercase fired');
+	} else {
+		res.json(object);
+		console.log('uppercase not fired');
+	}
 })
 
-/** 6) Use the .env file to configure the app */
- 
+
  
 /** 7) Root-level Middleware - A logger */
 //  place it before all the routes !
